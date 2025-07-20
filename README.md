@@ -8,7 +8,7 @@
 
 # Pi Specific
 * To install use `sudo apt install python3-screeninfo` for system-wide install. 
-* `sudo apt install python3-opencv` and `sudo apt install python3-pyqt5`
+* `sudo apt install python3-opencv` and `sudo apt install python3-pyqt5` and `sudo apt install python3-websockets`
 * Run the `screen_resolution.py` script to get the resolution. 
 * Auto hide taskbar
 * Copy video to file `scp trance1.mp4 dharze@dpi1.local:`
