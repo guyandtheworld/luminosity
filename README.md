@@ -26,3 +26,42 @@ autohide_duration = 500
 # layer can be top, bottom, overlay or background
 layer = top
 ```
+
+Command to run at start up
+
+* Create Luminosity/startup.log
+* touch at room start_up.sh
+* Add
+
+```
+#!/bin/bash
+
+LOG_FILE=~/Luminosity/startup.log
+
+echo "=== Script started at $(date) ===" >> $LOG_FILE
+echo "Current user: $(whoami)" >> $LOG_FILE
+echo "Current directory: $(pwd)" >> $LOG_FILE
+
+echo "Waiting 60 seconds..." >> $LOG_FILE
+sleep 60
+
+echo "Sleep completed at $(date)" >> $LOG_FILE
+echo "Changing to ~/Luminosity directory..." >> $LOG_FILE
+
+if cd ~/Luminosity; then
+    echo "Successfully changed to $(pwd)" >> $LOG_FILE
+    echo "Running Python script..." >> $LOG_FILE
+    python3 light_basic.py >> $LOG_FILE 2>&1
+    echo "Python script finished with exit code: $?" >> $LOG_FILE
+else
+    echo "ERROR: Failed to change to ~/Luminosity directory" >> $LOG_FILE
+    echo "Directory does not exist or no permissions" >> $LOG_FILE
+    exit 1
+fi
+
+echo "=== Script completed at $(date) ===" >> $LOG_FILE
+```
+
+* Make it executable chmod +x start_up.sh
+* Add /home/dharze/start_up.sh to .bashrc
+* Remove any remnants from crontab or /etc/rc.local
